@@ -1,6 +1,8 @@
 import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
 type RequestBody = {
   refreshToken: string;
   password: string;
