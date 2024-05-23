@@ -1,0 +1,10 @@
+package.json
+.next/
+coverage/
+storybook-static/
+.storybook/
+src/
+*.config.js
+*.config.mjs
+*.config.ts
+*.config.mts
