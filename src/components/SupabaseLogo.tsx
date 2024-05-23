@@ -1,6 +1,7 @@
 export default function SupabaseLogo() {
   return (
     <svg
+      role="img"
       aria-label="Supabase logo"
       width="140"
       height="30"
@@ -81,20 +82,10 @@ export default function SupabaseLogo() {
           <stop offset="1" stopOpacity="0" />
         </linearGradient>
         <clipPath id="clip0_4671_51136">
-          <rect
-            width="113.85"
-            height="21.8943"
-            fill="currentColor"
-            transform="translate(0.922119 0.456161)"
-          />
+          <rect width="113.85" height="21.8943" fill="currentColor" transform="translate(0.922119 0.456161)" />
         </clipPath>
         <clipPath id="clip1_4671_51136">
-          <rect
-            width="21.3592"
-            height="21.8943"
-            fill="currentColor"
-            transform="translate(0.919006 0.497101)"
-          />
+          <rect width="21.3592" height="21.8943" fill="currentColor" transform="translate(0.919006 0.497101)" />
         </clipPath>
       </defs>
     </svg>

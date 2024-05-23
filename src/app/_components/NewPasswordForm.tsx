@@ -1,10 +1,10 @@
 'use client';
 
-import {useEffect, useState, type FormEvent } from 'react';
-import {SubmitButton} from "@/app/login/submit-button";
-import { createClient } from "@supabase/supabase-js";
+import { SubmitButton } from '@/app/login/submit-button';
+import { createClient } from '@supabase/supabase-js';
+import { type FormEvent, useEffect, useState } from 'react';
 
-export const NewPasswordForm= () => {
+export const NewPasswordForm = () => {
   const [refreshToken, setRefreshToken] = useState<string>('');
 
   useEffect(() => {
@@ -16,8 +16,7 @@ export const NewPasswordForm= () => {
         setRefreshToken(extractedRefreshToken as string);
       }
     }
-  }, [refreshToken])
-
+  }, []);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,7 +26,7 @@ export const NewPasswordForm= () => {
     if (password !== '' && refreshToken !== '') {
       const supabase = createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
       );
 
       await supabase.auth.refreshSession({ refresh_token: refreshToken as string });
@@ -41,7 +40,7 @@ export const NewPasswordForm= () => {
       console.log(userData);
       console.log(userError);
     }
-  }
+  };
 
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
