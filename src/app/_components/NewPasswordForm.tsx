@@ -1,7 +1,6 @@
 'use client';
 
 import { SubmitButton } from '@/app/login/submit-button';
-import { createClient } from '@supabase/supabase-js';
 import { type FormEvent, useEffect, useState } from 'react';
 
 export const NewPasswordForm = () => {
@@ -24,25 +23,27 @@ export const NewPasswordForm = () => {
     const password = new FormData(event.currentTarget).get('password') as string;
 
     if (password !== '' && refreshToken !== '') {
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
-      );
-
-      await supabase.auth.refreshSession({ refresh_token: refreshToken as string });
-
-      const { data: user, error: userError } = await supabase.auth.updateUser({
-        password: password,
+      const createPasswordResponse = await fetch('http://localhost:24000/auth/password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ refreshToken, password }),
       });
 
-      // TODO パスワード設定後にログインさせる処理を追加する
-      // TODO パスワードリセットに失敗した場合のエラーハンドリングを追加する
-      console.log(user.user?.email);
-      console.log(userError);
+      const createPasswordResponseBody = (await createPasswordResponse.json()) as {
+        isSuccess: boolean;
+        user?: {
+          email: string;
+        };
+        errorMessage?: string;
+      };
 
-      const email = user.user?.email;
+      // TODO パスワードリセットに失敗した場合のエラーハンドリングを追加する
+
+      const email = createPasswordResponseBody.user?.email;
       if (email != null && typeof window !== 'undefined') {
-        const response = await fetch('http://localhost:24000/auth/login', {
+        const loginResponse = await fetch('http://localhost:24000/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -50,7 +51,7 @@ export const NewPasswordForm = () => {
           body: JSON.stringify({ email, password }),
         });
 
-        const responseBody = (await response.json()) as { loginSuccess: boolean; errorMessage?: string };
+        const responseBody = (await loginResponse.json()) as { loginSuccess: boolean; errorMessage?: string };
 
         if (responseBody.loginSuccess) {
           window.location.href = 'http://localhost:24000/protected';
