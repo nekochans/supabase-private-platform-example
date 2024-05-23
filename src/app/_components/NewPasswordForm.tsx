@@ -31,14 +31,32 @@ export const NewPasswordForm = () => {
 
       await supabase.auth.refreshSession({ refresh_token: refreshToken as string });
 
-      const { data: userData, error: userError } = await supabase.auth.updateUser({
+      const { data: user, error: userError } = await supabase.auth.updateUser({
         password: password,
       });
 
       // TODO パスワード設定後にログインさせる処理を追加する
       // TODO パスワードリセットに失敗した場合のエラーハンドリングを追加する
-      console.log(userData);
+      console.log(user.user?.email);
       console.log(userError);
+
+      const email = user.user?.email;
+      if (email != null && typeof window !== 'undefined') {
+        const response = await fetch('http://localhost:24000/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const responseBody = (await response.json()) as { loginSuccess: boolean; errorMessage?: string };
+
+        if (responseBody.loginSuccess) {
+          window.location.href = 'http://localhost:24000/protected';
+        }
+        // TODO ログイン失敗時のエラーハンドリングを考える
+      }
     }
   };
 
