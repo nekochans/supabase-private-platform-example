@@ -3,7 +3,11 @@
 import { SubmitButton } from '@/app/login/submit-button';
 import { type FormEvent, useEffect, useState } from 'react';
 
-export const NewPasswordForm = () => {
+type Props = {
+  origin: string;
+};
+
+export const NewPasswordForm = ({ origin }: Props) => {
   const [refreshToken, setRefreshToken] = useState<string>('');
 
   useEffect(() => {
@@ -23,7 +27,7 @@ export const NewPasswordForm = () => {
     const password = new FormData(event.currentTarget).get('password') as string;
 
     if (password !== '' && refreshToken !== '') {
-      const createPasswordResponse = await fetch('http://localhost:24000/auth/password', {
+      const createPasswordResponse = await fetch(`${origin}/auth/password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +47,7 @@ export const NewPasswordForm = () => {
 
       const email = createPasswordResponseBody.user?.email;
       if (email != null && typeof window !== 'undefined') {
-        const loginResponse = await fetch('http://localhost:24000/auth/login', {
+        const loginResponse = await fetch(`${origin}/auth/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -54,7 +58,7 @@ export const NewPasswordForm = () => {
         const responseBody = (await loginResponse.json()) as { loginSuccess: boolean; errorMessage?: string };
 
         if (responseBody.loginSuccess) {
-          window.location.href = 'http://localhost:24000/protected';
+          window.location.href = `${origin}/protected`;
         }
         // TODO ログイン失敗時のエラーハンドリングを考える
       }
