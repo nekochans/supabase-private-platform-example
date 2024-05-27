@@ -4,10 +4,10 @@ import { SubmitButton } from '@/app/login/submit-button';
 import { type FormEvent, useEffect, useState } from 'react';
 
 type Props = {
-  origin: string;
+  appUrl: string;
 };
 
-export const NewPasswordForm = ({ origin }: Props) => {
+export const NewPasswordForm = ({ appUrl }: Props) => {
   const [refreshToken, setRefreshToken] = useState<string>('');
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export const NewPasswordForm = ({ origin }: Props) => {
     const password = new FormData(event.currentTarget).get('password') as string;
 
     if (password !== '' && refreshToken !== '') {
-      const createPasswordResponse = await fetch(`${origin}/auth/password`, {
+      const createPasswordResponse = await fetch(`${appUrl}/auth/password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ export const NewPasswordForm = ({ origin }: Props) => {
 
       const email = createPasswordResponseBody.user?.email;
       if (email != null && typeof window !== 'undefined') {
-        const loginResponse = await fetch(`${origin}/auth/login`, {
+        const loginResponse = await fetch(`${appUrl}/auth/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export const NewPasswordForm = ({ origin }: Props) => {
         const responseBody = (await loginResponse.json()) as { loginSuccess: boolean; errorMessage?: string };
 
         if (responseBody.loginSuccess) {
-          window.location.href = `${origin}/protected`;
+          window.location.href = `${appUrl}/protected`;
         }
         // TODO ログイン失敗時のエラーハンドリングを考える
       }
