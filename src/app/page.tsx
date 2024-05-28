@@ -4,6 +4,7 @@ import DeployButton from '@/components/DeployButton';
 import Header from '@/components/Header';
 import ConnectSupabaseSteps from '@/components/tutorial/ConnectSupabaseSteps';
 import SignUpUserSteps from '@/components/tutorial/SignUpUserSteps';
+import { appUrl } from '@/features/url';
 import { createClient } from '@/utils/supabase/server';
 
 export default async function Index() {
@@ -29,7 +30,7 @@ export default async function Index() {
         </div>
       </nav>
 
-      <NewPasswordForm />
+      <NewPasswordForm appUrl={appUrl()} />
 
       <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
         <Header />
