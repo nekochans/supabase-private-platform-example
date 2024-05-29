@@ -9,7 +9,10 @@
     "lint:biome": "biome lint . && biome format . && biome check .",
     "fix:biome": "biome lint --apply . && biome format --write . && biome check --apply .",
     "lint": "run-s lint:*",
-    "format": "run-s fix:*"
+    "format": "run-s fix:*",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:migration:new": "supabase migration new"
   },
   "dependencies": {
     "@supabase/ssr": "0.3.0",
