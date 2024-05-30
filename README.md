@@ -77,6 +77,16 @@ http://127.0.0.1:54324
 npm run supabase:stop
 ```
 
+## SupabaseのMigration実行
+
+以下でMigrationを実行します。
+
+```bash
+npm run supabase:db:reset
+```
+
+このコマンドは一度DBをリセットしてからMigrationを実行するのでローカル開発環境のデータが消えてしまう点にご注意ください。
+
 ## SupabaseのMigrationファイル作成
 
 以下のように実行します。
