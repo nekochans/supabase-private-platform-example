@@ -12,6 +12,7 @@
     "format": "run-s fix:*",
     "supabase:start": "supabase start",
     "supabase:stop": "supabase stop",
+    "supabase:status": "supabase status",
     "supabase:migration:new": "supabase migration new"
   },
   "dependencies": {
