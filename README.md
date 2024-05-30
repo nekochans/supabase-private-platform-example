@@ -1,93 +1,122 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# Supabase検証用プロジェクト
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+管理者がアカウントを発行して運用するアプリケーションを想定しています。
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## Getting Started
 
-## Features
+### Node.js のインストール（既に終わっている場合は省略）
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Middleware
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+20 系の最新安定版を利用します。
 
-## Demo
+[asdf](https://asdf-vm.com/) などを使ってバージョン管理を出来るようにするのがオススメです。
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+### Docker Desktopのインストール（既に終わっている場合は省略）
 
-## Deploy to Vercel
+以下からインストールを行います。
 
-Vercel deployment will guide you through creating a Supabase account and project.
+https://matsuand.github.io/docs.docker.jp.onthefly/desktop/mac/install/
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+https://supabase.com/docs/guides/cli/local-development にも記載がありますが [OrbStack](https://orbstack.dev/) 等の別のツールでも利用出来るようです。（筆者は未確認）
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This%20starter%20configures%20Supabase%20Auth%20to%20use%20cookies%2C%20making%20the%20user's%20session%20available%20throughout%20the%20entire%20Next.js%20app%20-%20Client%20Components%2C%20Server%20Components%2C%20Route%20Handlers%2C%20Server%20Actions%20and%20Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png&integration-ids=oac_VqOgBHqhEoFTPzGkPd7L0iH6)
+### 依存Packageのインストール
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+```bash
+npm ci
+```
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+### Supabaseの起動
 
-## Clone and run locally
+以下のコマンドを実行します。
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+```bash
+npm run supabase:start
+```
 
-2. Create a Next.js app using the Supabase Starter template npx command
+### 環境変数の設定
 
-   ```bash
-   npx create-next-app -e with-supabase
-   ```
+以下の環境変数を設定します。
 
-3. Use `cd` to change into the app's directory
+```
+NEXT_PUBLIC_SUPABASE_URL=Supabaseの "API URL" を設定
+NEXT_PUBLIC_SUPABASE_ANON_KEY=Supabaseの "anon key" を設定
+```
 
-   ```bash
-   cd name-of-new-app
-   ```
+具体的な値の確認は以下のコマンドを実行すると確認できます。
 
-4. Rename `.env.local.example` to `.env.local` and update the following:
+```bash
+npm run supabase:status
+```
 
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
+### アプリケーションの起動
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
+以下のコマンドを実行します。
 
-5. You can now run the Next.js local development server:
+http://localhost:24000 にアクセスするとアプリケーションが表示されます。
 
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+## メールの受信確認について
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+http://localhost:24000/login/magiclink にアクセスするとMagicLinkによるログインが実行可能です。
 
-## Feedback and issues
+しかしローカル環境ではメールの送信は行われない為、`Inbucket` というツールでメールの内容確認を実施します。
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+以下のURLでツールにアクセス可能です。
 
-## More Supabase examples
+http://127.0.0.1:54324
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+`npm run supabase:status` を実行すると `Inbucket URL` という項目があるのでそこからもURLを確認可能です。
+
+## Supabaseの停止
+
+以下のコマンドを実行します。
+
+```bash
+npm run supabase:stop
+```
+
+## SupabaseのMigrationファイル作成
+
+以下のように実行します。
+
+```bash
+npm run supabase:migration:new create_triggers_functions_refresh_updated_at
+npm run supabase:migration:new create_table_users
+npm run supabase:migration:new create_triggers_on_users
+```
+
+`supabase/migrations/20240529151715_create_table_users.sql` のようなファイルが作成されます。
+
+### Migrationファイルの命名規則
+
+#### トリガー関数
+
+`create_triggers_functions_トリガー関数名` という命名規則に従います。
+
+例えば `refresh_updated_at` というトリガー関数を作成する場合、以下のように実行します。
+
+```bash
+npm run supabase:migration:new create_triggers_functions_refresh_updated_at
+```
+
+#### テーブル作成
+
+`create_table_テーブル名` という命名規則に従います。
+
+例えば `users` というテーブルを作成する場合、以下のように実行します。
+
+```bash
+npm run supabase:migration:new create_table_users
+```
+
+#### トリガー設定
+
+`create_triggers_on_テーブル名` という命名規則に従います。
+
+例えば `users` というテーブルにトリガーを設定する場合、以下のように実行します。
+
+```bash
+npm run supabase:migration:new create_triggers_on_users
+```
