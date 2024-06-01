@@ -19,7 +19,7 @@
     "supabase:link": "supabase link --project-ref $SUPABASE_PROJECT_ID",
     "supabase:db:push:dry-run": "supabase db push --dry-run",
     "supabase:db:push": "supabase db push",
-    "vercel:build": "npm run supabase:start && npm run supabase:login && npm run supabase:link && npm run supabase:db:push:dry-run && npm run build && npm run supabase:db:push"
+    "vercel:build": "npm run supabase:login && npm run supabase:link && npm run supabase:db:push:dry-run && npm run build && npm run supabase:db:push"
   },
   "dependencies": {
     "@supabase/ssr": "0.3.0",
