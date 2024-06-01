@@ -14,7 +14,12 @@
     "supabase:stop": "supabase stop",
     "supabase:status": "supabase status",
     "supabase:db:reset": "supabase db reset",
-    "supabase:migration:new": "supabase migration new"
+    "supabase:migration:new": "supabase migration new",
+    "supabase:login": "supabase login --token $SUPABASE_ACCESS_TOKEN",
+    "supabase:link": "supabase link --project-ref $SUPABASE_PROJECT_ID",
+    "supabase:db:push:dry-run": "supabase db push --dry-run",
+    "supabase:db:push": "supabase db push",
+    "vercel:build": "npm run supabase:start && npm run supabase:login && npm run supabase:link && npm run supabase:db:push:dry-run && npm run build && npm run supabase:db:push"
   },
   "dependencies": {
     "@supabase/ssr": "0.3.0",
