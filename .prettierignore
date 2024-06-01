@@ -8,3 +8,5 @@ src/
 *.config.mjs
 *.config.ts
 *.config.mts
+supabase/.branches/
+supabase/.temp/

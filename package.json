@@ -9,7 +9,12 @@
     "lint:biome": "biome lint . && biome format . && biome check .",
     "fix:biome": "biome lint --apply . && biome format --write . && biome check --apply .",
     "lint": "run-s lint:*",
-    "format": "run-s fix:*"
+    "format": "run-s fix:*",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:status": "supabase status",
+    "supabase:db:reset": "supabase db reset",
+    "supabase:migration:new": "supabase migration new"
   },
   "dependencies": {
     "@supabase/ssr": "0.3.0",
@@ -30,6 +35,7 @@
     "@types/react-dom": "18.3.0",
     "encoding": "0.1.13",
     "npm-run-all": "4.1.5",
-    "prettier": "3.2.5"
+    "prettier": "3.2.5",
+    "supabase": "1.169.8"
   }
 }
