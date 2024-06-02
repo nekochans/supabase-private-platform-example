@@ -77,7 +77,7 @@ http://127.0.0.1:54324
 npm run supabase:stop
 ```
 
-## SupabaseのMigration実行
+## SupabaseのMigration実行（ローカル環境）
 
 以下でMigrationを実行します。
 
@@ -86,6 +86,33 @@ npm run supabase:db:reset
 ```
 
 このコマンドは一度DBをリセットしてからMigrationを実行するのでローカル開発環境のデータが消えてしまう点にご注意ください。
+
+## SupabaseのMigration実行（開発、本番環境）
+
+Vercelで運用されているので、Vercel上で以下のnpm scriptが実行されるようになっています。
+
+- `supabase:login`
+- `supabase:link`
+- `supabase:db:push`
+- `vercel:build`
+
+以下の環境変数を設定する事でローカルからでも本番環境のSupabaseプロジェクトへのMigrationが可能です。
+
+しかし誤って本番環境のデータを破壊してしまうリスクがある為、緊急時以外の利用は非推奨となります。
+
+- `SUPABASE_PROJECT_ID`
+- `SUPABASE_ACCESS_TOKEN`
+- `SUPABASE_DB_PASSWORD`
+
+以下のトリガーで実行されます。（Vercelへのデプロイタイミングと同時です）
+
+### 開発環境用SupabaseプロジェクトへのMigration
+
+`main` Branch以外へのPushが行われた場合に実行されます。
+
+### 本番環境用SupabaseプロジェクトへのMigration
+
+`main` BranchへのPushが行われた場合に実行されます。
 
 ## SupabaseのMigrationファイル作成
 
