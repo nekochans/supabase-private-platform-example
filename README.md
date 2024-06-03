@@ -1,5 +1,7 @@
 # Supabase検証用プロジェクト
 
+[![ci](https://github.com/nekochans/supabase-private-platform-example/actions/workflows/ci.yml/badge.svg)](https://github.com/nekochans/supabase-private-platform-example/actions/workflows/ci.yml)
+
 管理者がアカウントを発行して運用するアプリケーションを想定しています。
 
 ## Getting Started
